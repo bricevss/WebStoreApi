@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.m2i.WebStoreApiV2.entity.Command;
 import com.m2i.WebStoreApiV2.entity.Users;
 import com.m2i.WebStoreApiV2.service.UserService;
 
@@ -37,6 +38,23 @@ public class UserController {
 //		}
 		
 		return uService.getById(id);
+	}
+	
+	@GetMapping("/{id}")
+	public Users getMontantTotalByUser(@PathVariable("id") int id) {
+		
+		Users u = uService.getById(id);
+		
+		List<Command> maList = u.getCommand();
+		int somme = 0;
+		
+		for(Command c:maList) {
+			
+			somme = (int) (somme + c.getPayment().getAmount());
+			
+		}
+		
+		return uService.getById(somme);
 	}
 	
 	@GetMapping
