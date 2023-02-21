@@ -50,8 +50,12 @@ public class ArticleController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteMapping(@PathVariable int id) {
+	public void deleteArticle(@PathVariable int id) {
 		aService.delete(id);
 	}
+	
+	
+	
+	
 
 }

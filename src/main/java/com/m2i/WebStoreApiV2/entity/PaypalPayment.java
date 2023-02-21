@@ -2,17 +2,19 @@ package com.m2i.WebStoreApiV2.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.github.javafaker.Faker;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="PaypalPayment")
-@PrimaryKeyJoinColumn(name="idPayment")
+@Table
 @Getter @Setter
+@AllArgsConstructor
 @ToString
 public class PaypalPayment extends Payment {
 	
@@ -20,6 +22,11 @@ public class PaypalPayment extends Payment {
 	private String AccountNumber;
 
 	public PaypalPayment() {
-		super();
+		
+		Faker f = new Faker();
+		
+		this.amount = f.number().numberBetween(1, 300);
+		this.paymentDate = f.date().birthday();
+		this.AccountNumber = Integer.toString(f.number().numberBetween(100000, 999999));
 	}		
 }

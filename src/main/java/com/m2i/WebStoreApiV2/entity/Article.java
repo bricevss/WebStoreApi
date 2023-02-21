@@ -1,6 +1,5 @@
 package com.m2i.WebStoreApiV2.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -18,10 +17,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity @Table
+@Entity() @Table(name="articles")
 @Getter @Setter @AllArgsConstructor @ToString
 public class Article {
-	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
@@ -36,14 +34,15 @@ public class Article {
 	
 	@OneToMany(targetEntity = CommandLine.class, mappedBy="article")
 	@JsonIgnore
-	private List<CommandLine> commandLines = new ArrayList<>();
+	private List<CommandLine> commandLines;
+	
 	
 	public Article() {
 		Faker f = new Faker();
 		
-		this.description = f.lorem().characters(20,200);
-		this.brand = f.name().title();
-		this.price = f.number().randomDouble(3, 10, 1000);
-		
+		this.description = f.lorem().paragraph();
+		this.brand = f.company().name();
+		this.price = f.number().randomDouble(2, 10, 1000);
 	}
+
 }

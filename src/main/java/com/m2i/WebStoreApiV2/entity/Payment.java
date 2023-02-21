@@ -1,7 +1,5 @@
 package com.m2i.WebStoreApiV2.entity;
 
-import java.sql.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,32 +8,26 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-@Entity @Table
-@Getter @Setter
-@ToString
-@Inheritance(strategy = InheritanceType.JOINED)
-@JsonDeserialize(as = PaypalPayment.class)
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Payment {
-	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Id @GeneratedValue( strategy = GenerationType.SEQUENCE)
 	private int id;
 	
-	private float amount;
-	private Date paymentDate;
+	protected float amount;
+	protected java.util.Date paymentDate;
 	
 	@OneToOne @JoinColumn(name="idCommand")
 	private Command command;
 
-	public Payment() {
-		super();
-	}
-	
 }

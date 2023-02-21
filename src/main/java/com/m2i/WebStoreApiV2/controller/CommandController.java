@@ -22,6 +22,20 @@ public class CommandController {
 	@Autowired 
 	CommandService cService;
 	
+	//@Autowired
+	//UserService uService;
+	
+	
+	@GetMapping("/fake")
+	public Command fakeCommand() {
+		//User u = new User();
+		//uService.create(u);
+		Command c = new Command();
+		cService.create(c);
+		return c;
+	}
+	
+	
 	@GetMapping("/{id}")
 	public Command getCommandById(@PathVariable int id) {
 		return cService.getById(id);

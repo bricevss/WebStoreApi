@@ -24,6 +24,18 @@ public class UserController {
 	
 	@GetMapping("/{id}")
 	public Users getUserById(@PathVariable("id") int id) {
+		
+//		Users u = uService.getById(id);
+//		
+//		List<Command> maList = u.getCommand();
+//		int somme = 0;
+//		
+//		for(Command c:maList) {
+//			
+//			somme = (int) (somme + c.getPayment().getAmount());
+//			
+//		}
+		
 		return uService.getById(id);
 	}
 	
